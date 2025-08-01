@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>2 Player Game</title>
+  <meta charset="UTF-8" />
+  <title>2 Player Reaction Game</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+    #btn { padding: 20px 40px; font-size: 2em; }
+    #status { margin-top: 20px; font-size: 1.5em; }
+    #scores { margin-top: 30px; font-size: 1.2em; white-space: pre-wrap; }
+  </style>
 </head>
 <body>
-  <h1>Simple 2-Player Game</h1>
-  <button id="btn">Increase Score</button>
-  <pre id="output"></pre>
+  <h1>2 Player Reaction Game</h1>
+  <button id="btn" disabled>Wait...</button>
+  <div id="status">Waiting for players...</div>
+  <pre id="scores"></pre>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
