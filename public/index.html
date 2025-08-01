@@ -2,19 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>2 Player Reaction Game</title>
+  <title>2 Player Rectangles</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
-    #btn { padding: 20px 40px; font-size: 2em; }
-    #status { margin-top: 20px; font-size: 1.5em; }
-    #scores { margin-top: 30px; font-size: 1.2em; white-space: pre-wrap; }
+    canvas {
+      background-color: #eee;
+      display: block;
+      margin: 20px auto;
+      border: 2px solid #333;
+    }
+    body {
+      background-color: #444;
+    }
   </style>
 </head>
 <body>
-  <h1>2 Player Reaction Game</h1>
-  <button id="btn" disabled>Wait...</button>
-  <div id="status">Waiting for players...</div>
-  <pre id="scores"></pre>
+  <h1>2 Player Rectangles (WASD control)</h1>
+  <canvas id="game" width="600" height="450"></canvas>
+  <p>Use WASD to move your red rectangle</p>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
