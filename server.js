@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
       case 'd': players[socket.id].x += speed; break;
     }
     // Begrenze Positionen auf Spielfeld (0..500, 0..400)
-    players[socket.id].x = Math.max(0, Math.min(500, players[socket.id].x));
+    players[socket.id].x = Math.max(0, Math.min(550, players[socket.id].x));
     players[socket.id].y = Math.max(0, Math.min(400, players[socket.id].y));
 
     io.emit('players', players);
