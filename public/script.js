@@ -1,41 +1,35 @@
 // -*- coding: utf-8 -*-
 const socket = io();
 
-const btn = document.getElementById('btn');
-const status = document.getElementById('status');
-const scores = document.getElementById('scores');
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
 
-let canClick = false;
+let players = {};
+let myId = null;
 
-btn.onclick = () => {
-  if (!canClick) return;
-  canClick = false;
-  btn.disabled = true;
-  btn.textContent = 'Clicked!';
-  socket.emit('click');
-};
-
-socket.on('status', (msg) => {
-  status.textContent = msg;
-  if (msg === 'GO!') {
-    btn.disabled = false;
-    btn.textContent = 'Click me!';
-    canClick = true;
-  } else if (msg.startsWith('Player') || msg === 'Waiting for players...') {
-    btn.disabled = true;
-    btn.textContent = 'Wait...';
-    canClick = false;
-  } else {
-    btn.disabled = true;
-    btn.textContent = 'Wait...';
-    canClick = false;
-  }
+socket.on('connect', () => {
+  myId = socket.id;
 });
 
-socket.on('players', (players) => {
-  let text = 'Scores:\n';
+socket.on('players', (serverPlayers) => {
+  players = serverPlayers;
+  draw();
+});
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
   for (const id in players) {
-    text += `Player ${id.substring(0,5)}: ${players[id].score}\n`;
+    const p = players[id];
+    ctx.fillStyle = (id === myId) ? 'darkred' : 'red';
+    ctx.fillRect(p.x, p.y, 50, 50);
   }
-  scores.textContent = text;
+}
+
+// Tastatursteuerung mit WASD
+window.addEventListener('keydown', (e) => {
+  if (['w', 'a', 's', 'd'].includes(e.key.toLowerCase())) {
+    e.preventDefault();
+    socket.emit('move', e.key.toLowerCase());
+  }
 });
